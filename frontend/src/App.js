@@ -37,7 +37,7 @@ const App = () => {
                 },
                 "&::-webkit-scrollbar-thumb": {
                     boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.3)',
-                    backgroundColor: "#0ca95f",
+                    backgroundColor: "#e8e8e8",
                 },
             },
             scrollbarStylesSoft: {
@@ -50,32 +50,18 @@ const App = () => {
             },
             palette: {
                 type: mode,
-                primary: { main: "#0ca95f" },
-                textPrimary: mode === "light" ? "#0ca95f" : "#FFFFFF",
-                borderPrimary: mode === "light" ? "#0ca95f" : "#FFFFFF",
-                dark: { main: mode === "light" ? "#333333" : "#666" },
+                primary: { main: "#007aff" },
+                textPrimary: mode === "light" ? "#007aff" : "#FFFFFF",
+                borderPrimary: mode === "light" ? "#007aff" : "#FFFFFF",
+                dark: { main: mode === "light" ? "#333333" : "#F3F3F3" },
                 light: { main: mode === "light" ? "#F3F3F3" : "#333333" },
                 tabHeaderBackground: mode === "light" ? "#EEE" : "#666",
                 optionsBackground: mode === "light" ? "#fafafa" : "#333",
-				options: mode === "light" ? "#fafafa" : "#666",
-				fontecor: mode === "light" ? "#0ca95f" : "#fff",
                 fancyBackground: mode === "light" ? "#fafafa" : "#333",
-				bordabox: mode === "light" ? "#eee" : "#333",
-				newmessagebox: mode === "light" ? "#eee" : "#333",
-				inputdigita: mode === "light" ? "#fff" : "#666",
-				contactdrawer: mode === "light" ? "#fff" : "#666",
-				announcements: mode === "light" ? "#ededed" : "#333",
-				login: mode === "light" ? "#fff" : "#1C1C1C",
-				announcementspopover: mode === "light" ? "#fff" : "#666",
-				chatlist: mode === "light" ? "#eee" : "#666",
-				boxlist: mode === "light" ? "#ededed" : "#666",
-				boxchatlist: mode === "light" ? "#ededed" : "#333",
                 total: mode === "light" ? "#fff" : "#222",
                 messageIcons: mode === "light" ? "grey" : "#F3F3F3",
                 inputBackground: mode === "light" ? "#FFFFFF" : "#333",
-                barraSuperior: mode === "light" ? "linear-gradient(to right, #0ca95f, #0ca95f, #0ca95f)" : "#666",
-				boxticket: mode === "light" ? "#EEE" : "#666",
-				campaigntab: mode === "light" ? "#ededed" : "#666",
+                barraSuperior: "#007aff"
             },
             mode,
         },
@@ -95,8 +81,6 @@ const App = () => {
     useEffect(() => {
         window.localStorage.setItem("preferredTheme", mode);
     }, [mode]);
-
-
 
     return (
         <ColorModeContext.Provider value={{ colorMode }}>

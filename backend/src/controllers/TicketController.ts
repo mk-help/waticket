@@ -10,7 +10,6 @@ import ShowTicketService from "../services/TicketServices/ShowTicketService";
 import UpdateTicketService from "../services/TicketServices/UpdateTicketService";
 import ListTicketsServiceKanban from "../services/TicketServices/ListTicketsServiceKanban";
 
-
 type IndexQuery = {
   searchParam: string;
   pageNumber: string;
@@ -29,6 +28,7 @@ interface TicketData {
   status: string;
   queueId: number;
   userId: number;
+  justClose: boolean;
 }
 
 export const index = async (req: Request, res: Response): Promise<Response> => {
@@ -104,7 +104,6 @@ export const kanban = async (req: Request, res: Response): Promise<Response> => 
   let tagsIds: number[] = [];
   let usersIds: number[] = [];
 
-
   if (queueIdsStringified) {
     queueIds = JSON.parse(queueIdsStringified);
   }
@@ -116,8 +115,9 @@ export const kanban = async (req: Request, res: Response): Promise<Response> => 
   if (userIdsStringified) {
     usersIds = JSON.parse(userIdsStringified);
   }
+  console.log("withUnreadMessages")
 
-
+  console.log(withUnreadMessages)
   const { tickets, count, hasMore } = await ListTicketsServiceKanban({
     searchParam,
     tags: tagsIds,
@@ -134,8 +134,6 @@ export const kanban = async (req: Request, res: Response): Promise<Response> => 
 
   });
 
-  //console.log("ticket controller 82");
-  
   return res.status(200).json({ tickets, count, hasMore });
 };
 

@@ -6,61 +6,88 @@ import { useHistory } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Formik, Form, Field } from "formik";
+import {
+
+    Button,
+    CssBaseline,
+    TextField,
+    Grid,
+    Typography,
+    Container,
+
+    Link
+} from '@material-ui/core';
 import usePlans from "../../hooks/usePlans";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import {
-	FormControl,
+	
 	InputLabel,
 	MenuItem,
 	Select,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import logo from "../../assets/logo.png";
 import { i18n } from "../../translate/i18n";
-
 import { openApi } from "../../services/api";
 import toastError from "../../errors/toastError";
 import moment from "moment";
-const Copyright = () => {
-	return (
-		<Typography variant="body2" color="textSecondary" align="center">
-			{"Copyright © "}
-			<Link color="inherit" href="#">
-				PLW
-			</Link>{" "}
-		   {new Date().getFullYear()}
-			{"."}
-		</Typography>
-	);
-};
+import logo from "../../assets/logologin.png";
+
+// const Copyright = () => {
+// 	return (
+// 		<Typography variant="body2" color="textSecondary" align="center">
+// 			{"Copyleft "}
+// 			<Link color="inherit" href="https://github.com/canove">
+// 				Canove
+// 			</Link>{" "}
+// 			{new Date().getFullYear()}
+// 			{"."}
+// 		</Typography>
+// 	);
+// };
 
 const useStyles = makeStyles(theme => ({
-	paper: {
-		marginTop: theme.spacing(8),
-		display: "flex",
-		flexDirection: "column",
-		alignItems: "center",
-	},
-	avatar: {
-		margin: theme.spacing(1),
-		backgroundColor: theme.palette.secondary.main,
-	},
-	form: {
-		width: "100%",
-		marginTop: theme.spacing(3),
-	},
-	submit: {
-		margin: theme.spacing(3, 0, 2),
-	},
+  root: {
+    width: "100vw",
+    height: "100vh",
+    background: "",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 100%",
+    backgroundPosition: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    padding: theme.spacing(2),
+    borderRadius: theme.spacing(2),
+    //backgroundColor: `rgba(${theme.palette.background.paper}, 0.8)`,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.16)",
+
+  },
+    avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  powered: {
+    color: "white"
+  }
 }));
 
 const UserSchema = Yup.object().shape({
@@ -82,7 +109,7 @@ const SignUp = () => {
 		companyId = params.companyId
 	}
 
-	const initialState = { name: "", email: "", phone: "", password: "", planId: "", };
+	const initialState = { name: "", email: "", password: "", planId: "", };
 
 	const [user] = useState(initialState);
 	const dueDate = moment().add(3, "day").format();
@@ -113,17 +140,17 @@ const SignUp = () => {
 	}, []);
 
 
-	return (
-		<Container component="main" maxWidth="xs">
-			<CssBaseline />
-			<div className={classes.paper}>
-				<div>
-					<img style={{ margin: "0 auto", height: "80px", width: "100%" }} src={logo} alt="Whats" />
-				</div>
-				{/*<Typography component="h1" variant="h5">
-					{i18n.t("signup.title")}
-				</Typography>*/}
-				{/* <form className={classes.form} noValidate onSubmit={handleSignUp}> */}
+return (
+    <div className={classes.root}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <div>
+            <img style={{ margin: "0 auto", height: "80px", width: "100%" }} src={logo} alt="Whats" />
+          </div>
+          <Typography component="h1" variant="h5">
+            {i18n.t("signup.title")}
+          </Typography>
 				<Formik
 					initialValues={user}
 					enableReinitialize={true}
@@ -166,22 +193,6 @@ const SignUp = () => {
 										required
 									/>
 								</Grid>
-								
-								<Grid item xs={12}>
-									<Field
-										as={TextField}
-										variant="outlined"
-										fullWidth
-										id="phone"
-										label="Telefone com (DDD)"
-										name="phone"
-										error={touched.email && Boolean(errors.email)}
-										helperText={touched.email && errors.email}
-										autoComplete="phone"
-										required
-									/>
-								</Grid>
-
 								<Grid item xs={12}>
 									<Field
 										as={TextField}
@@ -243,6 +254,7 @@ const SignUp = () => {
 			</div>
 			<Box mt={5}>{/* <Copyright /> */}</Box>
 		</Container>
+		</div>
 	);
 };
 

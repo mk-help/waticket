@@ -397,6 +397,7 @@ async function verifyAndFinalizeCampaign(campaign) {
 
   const io = getIO();
   io.emit(`company-${campaign.companyId}-campaign`, {
+    action: "update",
     record: campaign
   });
 }
@@ -552,15 +553,19 @@ async function handleDispatchCampaign(job) {
       });
       await campaignShipping.update({ confirmationRequestedAt: moment() });
     } else {
-      await wbot.sendMessage(chatId, {
-        text: campaignShipping.message
-      });
+     
       if (campaign.mediaPath) {
         const filePath = path.resolve("public", campaign.mediaPath);
         const options = await getMessageOptions(campaign.mediaName, filePath);
+        options.caption = campaignShipping.message
         if (Object.keys(options).length) {
           await wbot.sendMessage(chatId, { ...options });
         }
+      }
+      else{
+        await wbot.sendMessage(chatId, {
+          text: campaignShipping.message
+        });
       }
       await campaignShipping.update({ deliveredAt: moment() });
     }
@@ -579,6 +584,7 @@ async function handleDispatchCampaign(job) {
   } catch (err: any) {
     Sentry.captureException(err);
     logger.error(err.message);
+    console.log(err.stack);
   }
 }
 
@@ -622,7 +628,7 @@ async function handleInvoiceCreate() {
           { type: QueryTypes.SELECT }
         );
         if (invoice[0]['mycount'] > 0) {
-
+          
         } else {
           const sql = `INSERT INTO "Invoices" (detail, status, value, "updatedAt", "createdAt", "dueDate", "companyId")
           VALUES ('${plan.name}', 'open', '${plan.value}', '${timestamp}', '${timestamp}', '${date}', ${c.id});`

@@ -6,15 +6,15 @@ import Tag from "../../models/Tag";
 interface Request {
   name: string;
   color: string;
-  kanban: string;
   companyId: number;
+  kanban: number;
 }
 
 const CreateService = async ({
   name,
   color = "#A4CCCC",
-  kanban,
-  companyId
+  companyId,
+  kanban = 0,
 }: Request): Promise<Tag> => {
   const schema = Yup.object().shape({
     name: Yup.string().required().min(3)

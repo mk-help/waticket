@@ -133,7 +133,7 @@ const useAuth = () => {
         history.push("/tickets");
         setLoading(false);
       } else {
-        
+        console.log("BLOQUEADO")
         toastError(`Opss! Sua assinatura venceu ${vencimento}.
 Entre em contato com o Suporte para mais informações! `);
         setLoading(false);

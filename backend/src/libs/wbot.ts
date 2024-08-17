@@ -1,16 +1,18 @@
 import * as Sentry from "@sentry/node";
 import makeWASocket, {
+  WASocket,
   AuthenticationState,
   DisconnectReason,
   fetchLatestBaileysVersion,
+  AuthenticationCreds,
   makeInMemoryStore,
-  WASocket
-} from "@adiwajshing/baileys";
+  isJidBroadcast
+} from "@whiskeysockets/baileys";
 import P from "pino";
 
 import Whatsapp from "../models/Whatsapp";
 import { logger } from "../utils/logger";
-import MAIN_LOGGER from "@adiwajshing/baileys/lib/Utils/logger";
+import MAIN_LOGGER from "@whiskeysockets/baileys/lib/Utils/logger";
 import {useMultiFileAuthState} from "../helpers/useMultiFileAuthState";
 import authState from "../helpers/authState";
 import { Boom } from "@hapi/boom";
@@ -91,7 +93,7 @@ export const initWASocket = async (whatsapp: Whatsapp): Promise<Session> => {
           logger: loggerBaileys,
           printQRInTerminal: false,
           auth: state as AuthenticationState,
-          version: [2,2323,4]
+          version
         });
 
 

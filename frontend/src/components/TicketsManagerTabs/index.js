@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
   tabsHeader: {
     flex: "none",
-   // backgroundColor: "#eee",
+    backgroundColor: theme.palette.tabHeaderBackground,
   },
 
   settingsIcon: {
@@ -57,13 +57,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    // background: "#fafafa",
+    background: theme.palette.optionsBackground,
     padding: theme.spacing(1),
   },
 
   serachInputWrapper: {
     flex: 1,
-    // background: "#fff",
+    background: theme.palette.total,
     display: "flex",
     borderRadius: 40,
     padding: 4,
@@ -182,7 +182,7 @@ const TicketsManagerTabs = () => {
       <NewTicketModal
         modalOpen={newTicketModalOpen}
         onClose={(ticket) => {
-       
+          console.log("ticket", ticket);
           handleCloseOrOpenTicket(ticket);
         }}
       />

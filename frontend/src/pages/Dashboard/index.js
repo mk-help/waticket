@@ -340,55 +340,8 @@ const Dashboard = () => {
       <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3} justifyContent="flex-end">
           
-          {/* GRID DO VENCIMENTO */}
-          {/* <Grid item xs={12} sm={6} md={3}>
-            <CardCounter
-              icon={<TodayIcon fontSize="inherit" />}
-              title="Data Vencimento"
-              value={companyDueDate}
-              loading={loading}
-            />
-          </Grid> */}
-
-          {/* DASHBOARD ATENDIMENTOS HOJE */}
-          <Grid item xs={12}>
-            <Paper className={classes.fixedHeightPaper}>
-              <Chart />
-            </Paper>
-          </Grid>
-
-          {/* FILTROS */}
-          <Grid item xs={12} sm={6} md={4}>
-            <FormControl className={classes.selectContainer}>
-              <InputLabel id="period-selector-label">Tipo de Filtro</InputLabel>
-              <Select
-                labelId="period-selector-label"
-                value={filterType}
-                onChange={(e) => handleChangeFilterType(e.target.value)}
-              >
-                <MenuItem value={1}>Filtro por Data</MenuItem>
-                <MenuItem value={2}>Filtro por Período</MenuItem>
-              </Select>
-              <FormHelperText>Selecione o período desejado</FormHelperText>
-            </FormControl>
-          </Grid>
-
-          {renderFilters()}
-
-          {/* BOTAO FILTRAR */}
-          <Grid item xs={12} className={classes.alignRight}>
-            <ButtonWithSpinner
-              loading={loading}
-              onClick={() => fetchData()}
-              variant="contained"
-              color="primary"
-            >
-              Filtrar
-            </ButtonWithSpinner>
-          </Grid>
-
-          {/* ATENDIMENTOS PENDENTES */}
-          <Grid item xs={12} sm={6} md={4}>
+{/* ATENDIMENTOS PENDENTES */}
+<Grid item xs={12} sm={6} md={4}>
             <Paper
               className={classes.card1}
               style={{ overflow: "hidden" }}
@@ -609,6 +562,43 @@ const Dashboard = () => {
             </Paper>
           </Grid>
 
+          {/* FILTROS */}
+          <Grid item xs={12} sm={6} md={4}>
+            <FormControl className={classes.selectContainer}>
+              <InputLabel id="period-selector-label">Tipo de Filtro</InputLabel>
+              <Select
+                labelId="period-selector-label"
+                value={filterType}
+                onChange={(e) => handleChangeFilterType(e.target.value)}
+              >
+                <MenuItem value={1}>Filtro por Data</MenuItem>
+                <MenuItem value={2}>Filtro por Período</MenuItem>
+              </Select>
+              <FormHelperText>Selecione o período desejado</FormHelperText>
+            </FormControl>
+          </Grid>
+
+          {renderFilters()}
+
+          {/* BOTAO FILTRAR */}
+          <Grid item xs={12} className={classes.alignRight}>
+            <ButtonWithSpinner
+              loading={loading}
+              onClick={() => fetchData()}
+              variant="contained"
+              color="primary"
+            >
+              Filtrar
+            </ButtonWithSpinner>
+          </Grid>
+
+          {/* DASHBOARD ATENDIMENTOS HOJE */}
+          <Grid item xs={12}>
+            <Paper className={classes.fixedHeightPaper}>
+              <Chart />
+            </Paper>
+          </Grid>
+
           {/* USUARIOS ONLINE */}
           <Grid item xs={12}>
             {attendants.length ? (
@@ -621,7 +611,19 @@ const Dashboard = () => {
 
         </Grid>
       </Container>
-    </div>
+    
+
+          {/* GRID DO VENCIMENTO */}
+          {/* <Grid item xs={12} sm={6} md={3}>
+            <CardCounter
+              icon={<TodayIcon fontSize="inherit" />}
+              title="Data Vencimento"
+              value={companyDueDate}
+              loading={loading}
+            />
+          </Grid> */}        
+
+          </div>
   );
 };
 

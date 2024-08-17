@@ -58,8 +58,8 @@ routes.use(announcementRoutes);
 routes.use(chatRoutes);
 routes.use(subscriptionRoutes);
 routes.use(invoiceRoutes);
-routes.use(ticketTagRoutes);
 routes.use("/webhook/fb", webHookMetaRoutes);
+routes.use(ticketTagRoutes);
 
 
 export default routes;

@@ -21,8 +21,7 @@ import { i18n } from "../../translate/i18n";
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
 import { AuthContext } from "../../context/Auth/AuthContext";
-import { IconButton, InputAdornment, FormControl } from "@material-ui/core";
-
+import { Checkbox, FormControlLabel, IconButton, InputAdornment } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -56,11 +55,6 @@ const useStyles = makeStyles(theme => ({
 		width: 20,
 		height: 20,
 	},
-    multFieldLine: {
-    	display: 'flex',
-    	flexDirection: 'row',
-    	alignItems: 'center',
-  	},
 }));
 
 const TagSchema = Yup.object().shape({
@@ -73,13 +67,11 @@ const TagModal = ({ open, onClose, tagId, reload, kanban }) => {
 	const classes = useStyles();
 	const { user } = useContext(AuthContext);
 	const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
-    //console.log(user);
-
 
 	const initialState = {
 		name: "",
 		color: "",
-        kanban: kanban
+		kanban: kanban
 	};
 
 	const [tag, setTag] = useState(initialState);
@@ -90,7 +82,6 @@ const TagModal = ({ open, onClose, tagId, reload, kanban }) => {
 				if (!tagId) return;
 
 				const { data } = await api.get(`/tags/${tagId}`);
-                //console.log(data);
 				setTag(prevState => {
 					return { ...prevState, ...data };
 				});
@@ -108,6 +99,7 @@ const TagModal = ({ open, onClose, tagId, reload, kanban }) => {
 
 	const handleSaveTag = async values => {
 		const tagData = { ...values, userId: user.id, kanban: kanban };
+
 		try {
 			if (tagId) {
 				await api.put(`/tags/${tagId}`, tagData);
@@ -125,7 +117,6 @@ const TagModal = ({ open, onClose, tagId, reload, kanban }) => {
 	};
 
 	return (
-    	
 		<div className={classes.root}>
 			<Dialog
 				open={open}
@@ -135,7 +126,7 @@ const TagModal = ({ open, onClose, tagId, reload, kanban }) => {
 				scroll="paper"
 			>
 				<DialogTitle id="form-dialog-title">
-				{ (tagId ? (kanban === 0 ? `${i18n.t("tagModal.title.edit")}`: `${i18n.t("tagModal.title.editKanban")}`) : 
+					{ (tagId ? (kanban === 0 ? `${i18n.t("tagModal.title.edit")}`: `${i18n.t("tagModal.title.editKanban")}`) : 
 							   (kanban === 0 ? `${i18n.t("tagModal.title.add")}`: `${i18n.t("tagModal.title.addKanban")}`)) 
 					}
 				</DialogTitle>
@@ -199,7 +190,7 @@ const TagModal = ({ open, onClose, tagId, reload, kanban }) => {
 										margin="dense"
 									/>
 								</div>
-                                
+
 								{ colorPickerModalOpen && (
 									<div>
 										<ColorBox
@@ -246,7 +237,6 @@ const TagModal = ({ open, onClose, tagId, reload, kanban }) => {
 				</Formik>
 			</Dialog>
 		</div>
-        
 	);
 };
 

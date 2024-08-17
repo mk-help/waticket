@@ -150,7 +150,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TicketListItemCustom = ({ ticket, setUpdate}) => {
+const TicketListItemCustom = ({ ticket, setUpdate }) => {
   const classes = useStyles();
   const history = useHistory();
   const [loading, setLoading] = useState(false);
@@ -207,7 +207,6 @@ const TicketListItemCustom = ({ ticket, setUpdate}) => {
 
   const handleAcepptTicket = async (id) => {
     setLoading(true);
-  
     try {
       await api.put(`/tickets/${id}`, {
         status: "open",
@@ -366,6 +365,7 @@ const TicketListItemCustom = ({ ticket, setUpdate}) => {
             <Badge
               className={classes.Radiusdot}
               style={{
+                //backgroundColor: ticket.queue?.color,
                 backgroundColor: ticket.queue?.color || "#7C7C7C",
                 height: 18,
                 padding: 5,

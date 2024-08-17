@@ -112,7 +112,6 @@ const NotificationsPopOver = () => {
     });
 
     socket.on(`company-${companyId}-appMessage`, (data) => {
-      
 			if (
 				data.action === "create" &&
 				!data.message.read &&
@@ -195,16 +194,14 @@ const NotificationsPopOver = () => {
     <>
       <IconButton
         onClick={handleClick}
-        
         ref={anchorEl}
         aria-label="Mostrar Notificações"
         variant="contained"
 
       >
-          <ChatIcon style={{ color: "white" }} />
-        {notifications.length > 0 ?<Badge variant="dot" color="secondary"
-        style={{marginTop: "-25px"}}>
-        </Badge>: ""}
+          <ChatIcon />
+        {/* <Badge badgeContent={notifications.length} color="secondary">
+        </Badge> */}
       </IconButton>
       <Popover
         disableScrollLock

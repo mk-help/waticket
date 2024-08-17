@@ -40,6 +40,7 @@ const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
 const useStyles = makeStyles((theme) => ({
   mainWrapper: {
+    background: "#eee",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   newMessageBox: {
+    background: "#eee",
     width: "100%",
     display: "flex",
     padding: "7px",
@@ -82,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#eee",
+    background: theme.palette.total,
     borderTop: "1px solid rgba(0, 0, 0, 0.12)",
   },
 
@@ -229,7 +231,7 @@ const FileInput = (props) => {
         multiple
         type="file"
         id="upload-button"
-        disabled={disableOption}
+        disabled={disableOption()}
         className={classes.uploadInput}
         onChange={handleChangeMedias}
       />
@@ -237,7 +239,7 @@ const FileInput = (props) => {
         <IconButton
           aria-label="upload"
           component="span"
-          disabled={disableOption}
+          disabled={disableOption()}
         >
           <AttachFileIcon className={classes.sendMessageIcons} />
         </IconButton>
@@ -256,7 +258,6 @@ const ActionButtons = (props) => {
     handleCancelAudio,
     handleUploadAudio,
     handleStartRecording,
-    disableOption,
   } = props;
   const classes = useStyles();
   if (inputMessage) {
@@ -265,7 +266,7 @@ const ActionButtons = (props) => {
         aria-label="sendMessage"
         component="span"
         onClick={handleSendMessage}
-        disabled={disableOption}
+        disabled={loading}
       >
         <SendIcon className={classes.sendMessageIcons} />
       </IconButton>
@@ -277,7 +278,7 @@ const ActionButtons = (props) => {
           aria-label="cancelRecording"
           component="span"
           fontSize="large"
-          disabled={disableOption}
+          disabled={loading}
           onClick={handleCancelAudio}
         >
           <HighlightOffIcon className={classes.cancelAudioIcon} />
@@ -294,7 +295,7 @@ const ActionButtons = (props) => {
           aria-label="sendRecordedAudio"
           component="span"
           onClick={handleUploadAudio}
-          disabled={disableOption}
+          disabled={loading}
         >
           <CheckCircleOutlineIcon className={classes.sendAudioIcon} />
         </IconButton>
@@ -305,7 +306,7 @@ const ActionButtons = (props) => {
       <IconButton
         aria-label="showRecorder"
         component="span"
-        disabled={disableOption}
+        disabled={loading || ticketStatus !== "open"}
         onClick={handleStartRecording}
       >
         <MicIcon className={classes.sendMessageIcons} />
@@ -403,7 +404,6 @@ const CustomInput = (props) => {
   return (
     <div className={classes.messageInputWrapper}>
       <Autocomplete
-        disabled={disableOption}
         freeSolo
         open={popupOpen}
         id="grouped-demo"
@@ -439,7 +439,7 @@ const CustomInput = (props) => {
             <InputBase
               {...params.InputProps}
               {...rest}
-              disabled={disableOption}
+              disabled={disableOption()}
               inputRef={setInputRef}
               placeholder={renderPlaceholder()}
               multiline
@@ -594,7 +594,6 @@ const MessageInputCustom = (props) => {
 
   const handleSendMessage = async () => {
     if (inputMessage.trim() === "") return;
-    //if (disableOption) return
     setLoading(true);
 
     const message = {
@@ -619,7 +618,6 @@ const MessageInputCustom = (props) => {
   };
 
   const handleStartRecording = async () => {
-    if(disableOption)return;
     setLoading(true);
     try {
       await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -666,7 +664,9 @@ const MessageInputCustom = (props) => {
     }
   };
 
-  const disableOption =  loading || recording || ticketStatus === "closed";
+  const disableOption = () => {
+    return loading || recording || ticketStatus !== "open";
+  };
 
   const renderReplyingMessage = (message) => {
     return (
@@ -689,7 +689,7 @@ const MessageInputCustom = (props) => {
         <IconButton
           aria-label="showRecorder"
           component="span"
-          disabled={disableOption}
+          disabled={loading || ticketStatus !== "open"}
           onClick={() => setReplyingMessage(null)}
         >
           <ClearIcon className={classes.sendMessageIcons} />
@@ -704,7 +704,6 @@ const MessageInputCustom = (props) => {
         <IconButton
           aria-label="cancel-upload"
           component="span"
-          disabled={disableOption}
           onClick={(e) => setMedias([])}
         >
           <CancelIcon className={classes.sendMessageIcons} />
@@ -725,7 +724,7 @@ const MessageInputCustom = (props) => {
           aria-label="send-upload"
           component="span"
           onClick={handleUploadMedia}
-          disabled={disableOption}
+          disabled={loading}
         >
           <SendIcon className={classes.sendMessageIcons} />
         </IconButton>
@@ -737,7 +736,7 @@ const MessageInputCustom = (props) => {
         {replyingMessage && renderReplyingMessage(replyingMessage)}
         <div className={classes.newMessageBox}>
           <EmojiOptions
-            disabled={disableOption}
+            disabled={disableOption()}
             handleAddEmoji={handleAddEmoji}
             showEmoji={showEmoji}
             setShowEmoji={setShowEmoji}
@@ -771,7 +770,6 @@ const MessageInputCustom = (props) => {
             loading={loading}
             recording={recording}
             ticketStatus={ticketStatus}
-            disabeleOption={disableOption}
             handleSendMessage={handleSendMessage}
             handleCancelAudio={handleCancelAudio}
             handleUploadAudio={handleUploadAudio}

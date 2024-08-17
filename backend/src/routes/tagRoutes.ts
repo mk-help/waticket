@@ -7,11 +7,11 @@ const tagRoutes = express.Router();
 
 tagRoutes.get("/tags/list", isAuth, TagController.list);
 
-tagRoutes.get("/tags/kanban", isAuth, TagController.kanban);
-
 tagRoutes.get("/tags", isAuth, TagController.index);
 
 tagRoutes.post("/tags", isAuth, TagController.store);
+
+tagRoutes.get("/tags/kanban", isAuth, TagController.kanban);
 
 tagRoutes.put("/tags/:tagId", isAuth, TagController.update);
 
